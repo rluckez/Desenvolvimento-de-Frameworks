@@ -1,17 +1,14 @@
 package bean;
 
 import annotation.Length;
-import annotation.MyAnnotation;
 import annotation.NotNull;
 
 public class Bean {
 
-	@MyAnnotation
 	@Length(min=3, max=5)
 	private String nome;
 	
 	@NotNull
-	@MyAnnotation
 	private int idade;
 	
 	public Bean(String nome, int idade, String sexo) {
@@ -24,6 +21,7 @@ public class Bean {
 	public Bean(){}
 
 	@NotNull
+	@Length(min=6)
 	private String sexo;
 
 	public String getNome() {

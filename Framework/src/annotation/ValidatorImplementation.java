@@ -1,14 +1,14 @@
 package annotation;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import annotationimpl.NotNullParser;
+import annotationimpl.ValidatorParser;
 
+@Target(ElementType.ANNOTATION_TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-@ValidatorImplementation(NotNullParser.class)
-public @interface NotNull {
-
+public @interface ValidatorImplementation {
+	Class<? extends ValidatorParser> value();
 }
