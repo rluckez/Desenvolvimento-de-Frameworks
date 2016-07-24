@@ -5,7 +5,6 @@ public class ValidatorError {
 	private String desc;
 	
 	public ValidatorError(String desc) {
-		super();
 		this.desc = desc;
 	}
 

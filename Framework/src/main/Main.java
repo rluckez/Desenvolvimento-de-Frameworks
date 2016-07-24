@@ -1,26 +1,22 @@
 package main;
-import java.util.List;
-
-import bean.Bean;
-import excpetion.InvalidAnnotatedAttributeException;
+import bean.FormA;
 import framework.Validator;
-import framework.ValidatorError;
 
 public class Main {
 
-	public static void main(String[] args) throws IllegalArgumentException, IllegalAccessException, InvalidAnnotatedAttributeException {
+	public static void main(String[] args) {
 		
-		Bean bean = new Bean();
-		bean.setNome("Rafael");
-		bean.setSexo("M");
+		FormA example = new FormA();
+		example.setNome("Rafael");
+		example.setSexo("M");
+		example.setIdade(-5);
 		
 		Validator validator = new Validator();
-		List<ValidatorError> errors = validator.validate(bean);
-		if(errors.size() != 0){
-			for(ValidatorError ve : errors){
-				System.out.println("Erro: " + ve.getDesc());
-			}
+		validator.validate(example);
+		if(validator.isNotValid()){
+			validator.generateReport();
 		}
+		
 	}
 
 }

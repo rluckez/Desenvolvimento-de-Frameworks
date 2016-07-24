@@ -1,4 +1,5 @@
 package framework;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -7,44 +8,64 @@ import java.util.List;
 import annotation.ValidatorImplementation;
 import annotationimpl.ValidatorParser;
 import excpetion.InvalidAnnotatedAttributeException;
+import report.ConsoleReport;
+import report.ReportGenerator;
 
 public class Validator {
-	
-	private List<ValidatorError> errors;
 
-	public List<ValidatorError> validate(Object obj) throws IllegalArgumentException, IllegalAccessException, InvalidAnnotatedAttributeException{
+	private List<ValidatorError> errors = new ArrayList<>();
+	private ReportGenerator reportGenerator = new ConsoleReport();
+	private int numberOfValidations;
 
-		errors = new ArrayList<>();
-		
+	public void validate(Object obj) {
+
 		Field[] fields = obj.getClass().getDeclaredFields();
-		for(Field f : fields){
+		for (Field f : fields) {
 			f.setAccessible(true);
-			Object value = f.get(obj);
-			
-			for(Annotation an : f.getAnnotations()){
-				Class<?> anType = an.annotationType();
-				if(anType.isAnnotationPresent(ValidatorImplementation.class)){
-					try {
+			try {
+				Object value = f.get(obj);
+				for (Annotation an : f.getAnnotations()) {
+					Class<?> anType = an.annotationType();
+					if (anType.isAnnotationPresent(ValidatorImplementation.class)) {
 						ValidatorImplementation fi = anType.getAnnotation(ValidatorImplementation.class);
-						Class<? extends ValidatorParser> c = fi.value();
-						ValidatorParser vr = c.newInstance();
-						vr.readAnnotation(an);
-						vr.validate(value);
-						if(vr.isNotValid()){
-							errors.add(vr.getError());
+						Class<? extends ValidatorParser> clazz = fi.value();
+						ValidatorParser validator = clazz.newInstance();
+						validator.readAnnotation(an);
+						validator.validate(value);
+						numberOfValidations++;
+						if (validator.isNotValid()) {
+							errors.add(validator.getError());
 						}
-					} catch (InstantiationException e) {
-						e.printStackTrace();
-						throw new RuntimeException("Cannot validate fields", e);
 					}
 				}
+			} catch (InstantiationException | InvalidAnnotatedAttributeException | IllegalAccessException e) {
+				throw new RuntimeException("Cannot validate fields", e);
 			}
 		}
-		return errors;
 	}
-	
+
+	public void generateReport() {
+		reportGenerator.generateReport(this);
+	}
+
+	public boolean isValid() {
+		return errors.isEmpty();
+	}
+
+	public boolean isNotValid() {
+		return !errors.isEmpty();
+	}
+
 	public List<ValidatorError> getErrors() {
 		return errors;
 	}
-	
+
+	public void setReportGenerator(ReportGenerator reportGenerator) {
+		this.reportGenerator = reportGenerator;
+	}
+
+	public int getNumberOfValidations() {
+		return numberOfValidations;
+	}
+
 }
