@@ -16,15 +16,15 @@ public class IntRangeParser extends ValidatorParser {
 		if(obj instanceof Integer){
 			Integer value = (Integer) obj;
 			if(value < min){
-				ValidatorError error = new ValidatorError("Atributo com valor menor que o valor mínimo permitido.");
+				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui o valor " + value + " e o menor valor permitido é " + min);
 				setError(error);
 			}
 			if(value > max){
-				ValidatorError error = new ValidatorError("Atributo com valor maior que o valor máximo permitido");
+				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui o valor " + value + " e o maior valor permitido é " + max);
 				setError(error);
 			}
 		}else{
-			throw new InvalidAnnotatedAttributeException("O atributo anotado não é do tipo inteiro");
+			throw new InvalidAnnotatedAttributeException("O atributo " + getAttributeName() +" da classe " + getClassName() + " é do tipo " + getAttributeType() + " e não do tipo inteiro.");
 		}
 	}
 

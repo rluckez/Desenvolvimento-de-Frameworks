@@ -6,6 +6,11 @@ import java.lang.annotation.Target;
 
 import annotationimpl.NotNullParser;
 
+/**
+ * Check null attributes values
+ * @author Rafael
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @ValidatorImplementation(NotNullParser.class)

@@ -16,15 +16,15 @@ public class LengthParser extends ValidatorParser {
 		if(obj instanceof String){
 			String string = (String) obj;
 			if(min >= 0 && string.length() < min){
-				ValidatorError error = new ValidatorError("Atributo não possui o valor mínimo de caracteres necessários");
+				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o menor valor de caracteres permitido é " + min);
 				setError(error);
 			}
 			if(max >= 0 && string.length() > max){
-				ValidatorError error = new ValidatorError("Atributo ultrapassou o valor máximo de caracteres permitidos");
+				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o maior valor de caracteres permitido é " + max);
 				setError(error);
 			}
 		}else{
-			throw new InvalidAnnotatedAttributeException("O atributo anotado não é do tipo String");
+			throw new InvalidAnnotatedAttributeException("O atributo " + getAttributeName() +" da classe " + getClassName() + " é do tipo " + getAttributeType() + " e não do tipo String.");
 		}
 	}
 

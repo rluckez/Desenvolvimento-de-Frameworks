@@ -4,17 +4,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import annotationimpl.LengthParser;
+import annotationimpl.CheckDaysParser;
 
-/**
- * Validate a String length with min and/or max values
- * @author Rafael
- *
- */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-@ValidatorImplementation(LengthParser.class)
-public @interface Length {
-	int min() default -1; 
-    int max()     default -1; 
+@ValidatorImplementation(CheckDaysParser.class)
+public @interface CheckDays {
+	int numberOfDays() default 0;	 
 }

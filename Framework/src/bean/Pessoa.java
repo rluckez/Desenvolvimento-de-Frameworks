@@ -1,12 +1,10 @@
 package bean;
 
-import java.util.Date;
-
 import annotation.IntRange;
 import annotation.Length;
 import annotation.NotNull;
 
-public class FormA {
+public class Pessoa {
 	
 	@NotNull
 	@Length(min=3, max=20)
@@ -22,16 +20,13 @@ public class FormA {
 //	@NotNull
 	private String sexo;
 	
-//	@NotNull
-	private Date dataNascimento;
-	
-	public FormA(String nome, int idade, String sexo) {
+	public Pessoa(String nome, int idade, String sexo) {
 		this.nome = nome;
 		this.idade = idade;
 		this.sexo = sexo;
 	}
 	
-	public FormA(){}
+	public Pessoa(){}
 
 	public String getNome() {
 		return nome;
@@ -57,14 +52,6 @@ public class FormA {
 		this.sexo = sexo;
 	}
 
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
 	public String getRg() {
 		return rg;
 	}
@@ -72,5 +59,4 @@ public class FormA {
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-	
 }

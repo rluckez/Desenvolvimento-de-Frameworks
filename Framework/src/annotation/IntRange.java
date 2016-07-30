@@ -6,6 +6,11 @@ import java.lang.annotation.Target;
 
 import annotationimpl.IntRangeParser;
 
+/**
+ * Check if an int value is beetwen a especified range or default values
+ * @author Rafael
+ *
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @ValidatorImplementation(IntRangeParser.class)

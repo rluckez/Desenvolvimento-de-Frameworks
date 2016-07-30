@@ -17,6 +17,8 @@ public class ConsoleReport implements ReportGenerator {
 		}		
 		System.out.println("No total foram realizadas " + validator.getNumberOfValidations() + " validações e " + errors.size() + " erros foram encontrados.");
 		System.out.println(".......:::::::: Final do relatório de validação ::::::::.......");
+		System.out.println("");
+		System.out.println("");
 	}
 
 }
