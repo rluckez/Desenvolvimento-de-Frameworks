@@ -25,6 +25,7 @@ public class Main {
 		boleto.setValor(999.99);
 		boleto.setVencimento(dateToTest.plusDays(3).toDate());
 		boleto.setVencimentoAsCalendar(dateToTest.plusDays(7).toCalendar(Locale.getDefault()));
+		boleto.setVencimentoAsString("02/08/2016");
 		
 		Validator validator = new Validator();
 		validator.validate(example);

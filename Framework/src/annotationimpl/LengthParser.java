@@ -16,11 +16,11 @@ public class LengthParser extends ValidatorParser {
 		if(obj instanceof String){
 			String string = (String) obj;
 			if(min >= 0 && string.length() < min){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o menor valor de caracteres permitido é " + min);
+				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o valor mínimo de caracteres permitido é " + min);
 				setError(error);
 			}
 			if(max >= 0 && string.length() > max){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o maior valor de caracteres permitido é " + max);
+				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o valor máximo de caracteres permitido é " + max);
 				setError(error);
 			}
 		}else{

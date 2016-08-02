@@ -6,20 +6,21 @@ import java.util.Date;
 import annotation.CheckDays;
 import annotation.Length;
 import annotation.NotNull;
+import annotation.Regex;
 
 public class Boleto {
 	
 	public Boleto(){}
 	
-	public Boleto(String nome, String banco, double valor, Date vencimento, Calendar vencimentoAsCalendar) {
+	public Boleto(String nome, String banco, double valor, Date vencimento, Calendar vencimentoAsCalendar, String vencimentoAsString) {
 		super();
 		this.nome = nome;
 		this.banco = banco;
 		this.valor = valor;
 		this.vencimento = vencimento;
 		this.vencimentoAsCalendar = vencimentoAsCalendar;
+		this.vencimentoAsString = vencimentoAsString;
 	}
-
 
 	@NotNull
 	@Length(min=3, max=20)
@@ -39,6 +40,8 @@ public class Boleto {
 	@CheckDays(numberOfDays=3)
 	private Calendar vencimentoAsCalendar;
 	
+	@Regex(regex="\\d{2}/\\d{2}/\\d{4}")
+	private String vencimentoAsString;
 
 	public String getNome() {
 		return nome;
@@ -78,6 +81,14 @@ public class Boleto {
 
 	public void setVencimentoAsCalendar(Calendar vencimentoAsCalendar) {
 		this.vencimentoAsCalendar = vencimentoAsCalendar;
+	}
+
+	public String getVencimentoAsString() {
+		return vencimentoAsString;
+	}
+
+	public void setVencimentoAsString(String vencimentoAsString) {
+		this.vencimentoAsString = vencimentoAsString;
 	}
 	
 	

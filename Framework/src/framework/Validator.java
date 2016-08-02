@@ -54,7 +54,6 @@ public class Validator {
 					if (anType.isAnnotationPresent(ValidatorImplementation.class)) {
 						ValidatorImplementation fi = anType.getAnnotation(ValidatorImplementation.class);
 						Class<? extends ValidatorParser> clazz = fi.value();
-//						ValidatorParser validator = clazz.getDeclaredConstructor(Field.class).newInstance(f);
 						ValidatorParser validator = clazz.newInstance();
 						validator.setInfo(f);
 						validator.readAnnotation(an);
