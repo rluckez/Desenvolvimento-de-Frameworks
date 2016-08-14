@@ -6,8 +6,13 @@ public class Main {
 		Product p = new Product("notebook", "HP", 1999.99, "2348203894032948");
 		p.setSecretCode("não deve aparecer");
 		
-		FileSerializer cxs = new FileSerializer(new Compressor(), new PropertiesFormatter());
-		cxs.generateFile("product.zip", p);		
+		SerializerBuilder builder = new SerializerBuilder();
+		//Exemplo utilizando o builder com interface fluente
+		Serializer cxs = builder.createPropertiesSerializer().withEncription(1).withLogging().build();
+		
+		//Código não utilizando o builder
+//		Serializer cxs = new SerializerLogger(new FileSerializer(new Crypto(1), new PropertiesFormatter()));
+		cxs.generateFile("product.txt", p);		
 		
 	}
 
