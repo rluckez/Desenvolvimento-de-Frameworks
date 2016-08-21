@@ -4,13 +4,13 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import excpetion.InvalidAnnotatedAttributeException;
-import framework.ValidatorError;
+import framework.ValidateError;
 
 public abstract class ValidatorParser {
 
 	public abstract void validate(Object obj) throws InvalidAnnotatedAttributeException;
 	private boolean isValid = true;
-	private ValidatorError error;
+	private ValidateError error;
 	private String className;
 	private String attributeName;
 	private String attributeType;
@@ -31,11 +31,11 @@ public abstract class ValidatorParser {
 		return !isValid;
 	}
 	
-	public ValidatorError getError() {
+	public ValidateError getError() {
 		return error;
 	}
 	
-	protected void setError(ValidatorError ve){
+	protected void setError(ValidateError ve){
 		this.error = ve;
 		this.isValid = false;
 	}

@@ -20,6 +20,7 @@ public class Main {
 		
 		DateTime dateToTest = new DateTime();
 		Boleto boleto = new Boleto();
+		boleto.setTeste("abc");
 		boleto.setNome("Boleto 1");
 		boleto.setBanco("Caixa Econômica Federal");
 		boleto.setValor(999.99);

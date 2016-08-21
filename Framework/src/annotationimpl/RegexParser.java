@@ -4,7 +4,8 @@ import java.lang.annotation.Annotation;
 
 import annotation.Regex;
 import excpetion.InvalidAnnotatedAttributeException;
-import framework.ValidatorError;
+import framework.DefaultValidateError;
+import framework.ValidateError;
 
 public class RegexParser extends ValidatorParser {
 
@@ -12,16 +13,12 @@ public class RegexParser extends ValidatorParser {
 	
 	@Override
 	public void validate(Object obj) throws InvalidAnnotatedAttributeException {
-		
-		if(obj instanceof String){
-			String string = (String) obj;
-			if(!string.matches(regex)){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " com valor " + string + " não está de acordo com o padrão " + regex);
-				setError(error);
-			}			
-		}else{
-			throw new InvalidAnnotatedAttributeException("O atributo " + getAttributeName() +" da classe " + getClassName() + " é do tipo " + getAttributeType() + " e não do tipo String.");
-		}
+	
+		String string = (String) obj;
+		if(!string.matches(regex)){
+			ValidateError error = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " com valor " + string + " não está de acordo com o padrão " + regex);
+			setError(error);
+		}			
 	}
 
 	@Override

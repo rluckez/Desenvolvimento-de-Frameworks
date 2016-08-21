@@ -2,14 +2,15 @@ package annotationimpl;
 
 import java.lang.annotation.Annotation;
 
-import framework.ValidatorError;
+import framework.DefaultValidateError;
+import framework.ValidateError;
 
 public class NotNullParser extends ValidatorParser {
 
 	@Override
 	public void validate(Object obj) {
 		if(obj == null){
-			ValidatorError ve = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " está nulo.");
+			ValidateError ve = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " está nulo.");
 			setError(ve);
 		}
 	}

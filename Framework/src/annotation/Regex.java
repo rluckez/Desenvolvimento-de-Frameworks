@@ -5,6 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import annotationimpl.RegexParser;
+import net.sf.esfinge.metadata.annotation.validator.field.ValidFieldTypes;
 
 /**
  * Validate if a String matches a pattern
@@ -14,6 +15,7 @@ import annotationimpl.RegexParser;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 @ValidatorImplementation(RegexParser.class)
+@ValidFieldTypes(listValidTypes = {String.class})
 public @interface Regex {
 	String regex() default ""; 
 }

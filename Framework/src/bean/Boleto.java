@@ -3,9 +3,9 @@ package bean;
 import java.util.Calendar;
 import java.util.Date;
 
-import annotation.CheckDays;
 import annotation.Length;
 import annotation.NotNull;
+import annotation.PeriodFromCurrentTime;
 import annotation.Regex;
 
 public class Boleto {
@@ -33,12 +33,17 @@ public class Boleto {
 	private double valor;
 	
 	@NotNull
-	@CheckDays(numberOfDays=1)
+	@PeriodFromCurrentTime(numberOfDays=1)
 	private Date vencimento;
 	
 	@NotNull
-	@CheckDays(numberOfDays=3)
+	@PeriodFromCurrentTime(numberOfDays=3)
 	private Calendar vencimentoAsCalendar;
+	
+//	@CheckDays(numberOfDays=4)
+//	@Length(min=3, max=20)
+//	@IntRange(min=0, max=150)
+	private String teste;
 	
 	@Regex(regex="\\d{2}/\\d{2}/\\d{4}")
 	private String vencimentoAsString;
@@ -89,6 +94,14 @@ public class Boleto {
 
 	public void setVencimentoAsString(String vencimentoAsString) {
 		this.vencimentoAsString = vencimentoAsString;
+	}
+
+	public String getTeste() {
+		return teste;
+	}
+
+	public void setTeste(String teste) {
+		this.teste = teste;
 	}
 	
 	

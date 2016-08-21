@@ -4,7 +4,8 @@ import java.lang.annotation.Annotation;
 
 import annotation.IntRange;
 import excpetion.InvalidAnnotatedAttributeException;
-import framework.ValidatorError;
+import framework.DefaultValidateError;
+import framework.ValidateError;
 
 public class IntRangeParser extends ValidatorParser {
 
@@ -13,18 +14,14 @@ public class IntRangeParser extends ValidatorParser {
 	@Override
 	public void validate(Object obj) throws InvalidAnnotatedAttributeException {
 		
-		if(obj instanceof Integer){
-			Integer value = (Integer) obj;
-			if(value < min){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui o valor " + value + " e o menor valor permitido é " + min);
-				setError(error);
-			}
-			if(value > max){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui o valor " + value + " e o maior valor permitido é " + max);
-				setError(error);
-			}
-		}else{
-			throw new InvalidAnnotatedAttributeException("O atributo " + getAttributeName() +" da classe " + getClassName() + " é do tipo " + getAttributeType() + " e não do tipo inteiro.");
+		Integer value = (Integer) obj;
+		if(value < min){
+			ValidateError error = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui o valor " + value + " e o menor valor permitido é " + min);
+			setError(error);
+		}
+		if(value > max){
+			ValidateError error = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui o valor " + value + " e o maior valor permitido é " + max);
+			setError(error);
 		}
 	}
 

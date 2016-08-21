@@ -4,7 +4,8 @@ import java.lang.annotation.Annotation;
 
 import annotation.Length;
 import excpetion.InvalidAnnotatedAttributeException;
-import framework.ValidatorError;
+import framework.DefaultValidateError;
+import framework.ValidateError;
 
 public class LengthParser extends ValidatorParser {
 
@@ -13,18 +14,14 @@ public class LengthParser extends ValidatorParser {
 	@Override
 	public void validate(Object obj) throws InvalidAnnotatedAttributeException {
 		
-		if(obj instanceof String){
-			String string = (String) obj;
-			if(min >= 0 && string.length() < min){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o valor mínimo de caracteres permitido é " + min);
-				setError(error);
-			}
-			if(max >= 0 && string.length() > max){
-				ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o valor máximo de caracteres permitido é " + max);
-				setError(error);
-			}
-		}else{
-			throw new InvalidAnnotatedAttributeException("O atributo " + getAttributeName() +" da classe " + getClassName() + " é do tipo " + getAttributeType() + " e não do tipo String.");
+		String string = (String) obj;
+		if(min >= 0 && string.length() < min){
+			ValidateError error = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o valor mínimo de caracteres permitido é " + min);
+			setError(error);
+		}
+		if(max >= 0 && string.length() > max){
+			ValidateError error = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " possui " + string.length() + " caracter(es) e o valor máximo de caracteres permitido é " + max);
+			setError(error);
 		}
 	}
 

@@ -8,9 +8,10 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import annotation.CheckDays;
+import annotation.PeriodFromCurrentTime;
 import excpetion.InvalidAnnotatedAttributeException;
-import framework.ValidatorError;
+import framework.DefaultValidateError;
+import framework.ValidateError;
 
 /**
  * Classe criada para realizar a validação de atributos anotados com @CheckDays.
@@ -19,7 +20,7 @@ import framework.ValidatorError;
  * @author Rafael
  *
  */
-public class CheckDaysParser extends ValidatorParser {
+public class PeriodFromCurrentTimeParser extends ValidatorParser {
 
 	//Número de dias de prazo a partir da data atríbuida ao atributo anotado
 	private int numberOfDays;
@@ -27,19 +28,18 @@ public class CheckDaysParser extends ValidatorParser {
 	@Override
 	public void validate(Object obj) throws InvalidAnnotatedAttributeException {
 		
-		DateTime value;
+		DateTime value = null;
 		if(obj instanceof Date){
 			value = new DateTime((Date) obj);
-		} else if(obj instanceof Calendar){
+		}
+		if(obj instanceof Calendar){
 			value = new DateTime((Calendar) obj);
-		}else{
-			throw new InvalidAnnotatedAttributeException("O atributo " + getAttributeName() +" da classe " + getClassName() + " é do tipo " + getAttributeType() + " e não do tipo inteiro.");
 		}
 		
 		DateTime referenceValue = new DateTime().plusDays(numberOfDays);
-		if(value.isAfter(referenceValue)){
+		if(value != null & value.isAfter(referenceValue)){
 			DateTimeFormatter dtfOut = DateTimeFormat.forPattern("dd/MM/yyyy");
-			ValidatorError error = new ValidatorError("Atributo " + getAttributeName() + " da classe " + getClassName() + " está com a data " + dtfOut.print(value) + 
+			ValidateError error = new DefaultValidateError("Atributo " + getAttributeName() + " da classe " + getClassName() + " está com a data " + dtfOut.print(value) + 
 					" e o prazo máximo para este campo é " + dtfOut.print(referenceValue));
 			setError(error);
 		}
@@ -47,7 +47,7 @@ public class CheckDaysParser extends ValidatorParser {
 
 	@Override
 	public void readAnnotation(Annotation an) {
-		CheckDays checkDays = (CheckDays) an;
+		PeriodFromCurrentTime checkDays = (PeriodFromCurrentTime) an;
 		this.numberOfDays = checkDays.numberOfDays();
 	}
 	
